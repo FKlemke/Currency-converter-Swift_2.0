@@ -12,7 +12,6 @@
 		773C50841C0A105600F7775D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 773C50821C0A105600F7775D /* Main.storyboard */; };
 		773C50861C0A105600F7775D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 773C50851C0A105600F7775D /* Assets.xcassets */; };
 		773C50891C0A105600F7775D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 773C50871C0A105600F7775D /* LaunchScreen.storyboard */; };
-		773C50911C0A110600F7775D /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773C50901C0A110600F7775D /* Currency.swift */; };
 		773C50931C0A11A400F7775D /* UpdateRates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773C50921C0A11A400F7775D /* UpdateRates.swift */; };
 /* End PBXBuildFile section */
 
@@ -24,7 +23,6 @@
 		773C50851C0A105600F7775D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		773C50881C0A105600F7775D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		773C508A1C0A105600F7775D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		773C50901C0A110600F7775D /* Currency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		773C50921C0A11A400F7775D /* UpdateRates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateRates.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -64,7 +62,6 @@
 				773C50851C0A105600F7775D /* Assets.xcassets */,
 				773C50871C0A105600F7775D /* LaunchScreen.storyboard */,
 				773C508A1C0A105600F7775D /* Info.plist */,
-				773C50901C0A110600F7775D /* Currency.swift */,
 				773C50921C0A11A400F7775D /* UpdateRates.swift */,
 			);
 			path = "Ue4-Klemke";
@@ -142,7 +139,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				773C50911C0A110600F7775D /* Currency.swift in Sources */,
 				773C50811C0A105600F7775D /* ViewController.swift in Sources */,
 				773C50931C0A11A400F7775D /* UpdateRates.swift in Sources */,
 				773C507F1C0A105600F7775D /* AppDelegate.swift in Sources */,
@@ -293,6 +289,7 @@
 				773C508F1C0A105600F7775D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

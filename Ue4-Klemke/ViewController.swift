@@ -8,10 +8,15 @@
 
 import UIKit
 
+enum Currency: String {
+    case EUR, USD, GBP
+    }
+
+
 class ViewController: UIViewController {
     
     var updateCurrRate = UpdateRates()
-    var currencies = [Currency]()
+    var currencies = [Currency : Double]()
     
     @IBOutlet weak var eurUsdConversionRate: UITextField!
     @IBOutlet weak var eurGbpConversionRate: UITextField!
@@ -19,7 +24,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var usdVal: UITextField!
     @IBOutlet weak var gbpVal: UITextField!
     
-    func setTestData(){
+    func setDummyData(){
         eurUsdConversionRate.text = "1.0651"
         eurGbpConversionRate.text = "0.7011"
         eurVal.text = "1"
@@ -28,19 +33,25 @@ class ViewController: UIViewController {
     }
     
     func initCurrs(){
-        let xeu = Currency(name: "Euro", currCode: "EUR", value: 1.0)
-        let gbp = Currency(name: "British Pound",currCode: "GBP", value: 1.0)
-        let usd = Currency(name: "Dollar", currCode: "USD", value: 1.0)
-        currencies.append(xeu)
-        currencies.append(gbp)
-        currencies.append(usd)
+        currencies[Currency.EUR] = 1
+        currencies[Currency.USD] = 1
+        currencies[Currency.GBP] = 1
     }
     
     //rates
     @IBAction func eurUsdManConvChange(sender: AnyObject) {
         if let eurValValid = Double(eurVal.text!){
-            usdVal.text = String(eurValValid * Double(eurUsdConversionRate.text!)!)
+            if let usdValValid = Double(usdVal.text!){
+                //TODO does not work
+                let valueAA = eurValValid * usdValValid
+                print("Here? \(valueAA)")
+                usdVal.text = String(valueAA)
+            }
         }
+        print("EUR USD changed")
+//        guard let eurValValid = try? Double(eurVal.text!)! else{}
+//        guard let usdValValid = try? Double(usdVal.text!)! else{}
+//        usdVal.text = String(eurValValid * usdValValid)
     }
     
     @IBAction func eurGbpManConvChange(sender: AnyObject) {
@@ -57,18 +68,23 @@ class ViewController: UIViewController {
     }
     
     //updateRates
-    @IBAction func updateRates(sender: AnyObject) throws {
-        guard let eurUsdRate = try? updateCurrRate.updateRateFromYahoo(currencies[0], buyingCurrency: currencies[1]) else { throw CurrencyConversionError.CurrencyNotFound }
+    @IBAction func updateRates(sender: AnyObject) {
+//  tried using the guard statement but error was thrown and no idea how to catch it
+//        guard let eurUsdRate = try? updateCurrRate.updateRateFromYahoo(Currency.EUR, buyingCurrency: Currency.USD) else { throw CurrencyConversionError.CurrencyNotFound }
+//        guard let eurGbpRate = try? updateCurrRate.updateRateFromYahoo(Currency.EUR, buyingCurrency: Currency.GBP) else { throw CurrencyConversionError.CurrencyNotFound }
+
+        if let eurUsdRate = try? updateCurrRate.updateRateFromYahoo(Currency.EUR, buyingCurrency: Currency.USD){
+            eurUsdConversionRate.text = String(eurUsdRate)
+        }
+        if let eurGbpRate = try? updateCurrRate.updateRateFromYahoo(Currency.EUR, buyingCurrency: Currency.GBP){
+           eurGbpConversionRate.text = String(eurGbpRate)
+        }
         
-        guard let eurGbpRate = try? updateCurrRate.updateRateFromYahoo(currencies[0], buyingCurrency: currencies[2]) else { throw CurrencyConversionError.CurrencyNotFound }
-        
-        eurUsdConversionRate.text = String(eurUsdRate)
-        eurGbpConversionRate.text = String(eurGbpRate)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setTestData()
+        setDummyData()
         initCurrs()
         // Do any additional setup after loading the view, typically from a nib.
     }
