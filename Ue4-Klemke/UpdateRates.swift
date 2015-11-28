@@ -15,7 +15,7 @@ enum CurrencyConversionError: ErrorType {
 class UpdateRates {
     
     
-    func updateRates(sellingCurrency: Currency, buyingCurrency: Currency) throws -> Double{
+    func updateRateFromYahoo(sellingCurrency: Currency, buyingCurrency: Currency) throws -> Double{
         
         let currRateURL = NSURL(string: "https://download.finance.yahoo.com/d/quotes.csv?s=\(sellingCurrency.currCode)\(buyingCurrency.currCode)=X&f=a")
         do {

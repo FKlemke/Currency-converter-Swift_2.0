@@ -38,6 +38,9 @@ class ViewController: UIViewController {
     
     //rates
     @IBAction func eurUsdManConvChange(sender: AnyObject) {
+        if let eurValValid = Double(eurVal.text!){
+            usdVal.text = String(eurValValid * Double(eurUsdConversionRate.text!)!)
+        }
     }
     
     @IBAction func eurGbpManConvChange(sender: AnyObject) {
@@ -55,9 +58,9 @@ class ViewController: UIViewController {
     
     //updateRates
     @IBAction func updateRates(sender: AnyObject) throws {
-        guard let eurUsdRate = try? updateCurrRate.updateRates(currencies[0], buyingCurrency: currencies[1]) else { throw CurrencyConversionError.CurrencyNotFound }
+        guard let eurUsdRate = try? updateCurrRate.updateRateFromYahoo(currencies[0], buyingCurrency: currencies[1]) else { throw CurrencyConversionError.CurrencyNotFound }
         
-        guard let eurGbpRate = try? updateCurrRate.updateRates(currencies[0], buyingCurrency: currencies[2]) else { throw CurrencyConversionError.CurrencyNotFound }
+        guard let eurGbpRate = try? updateCurrRate.updateRateFromYahoo(currencies[0], buyingCurrency: currencies[2]) else { throw CurrencyConversionError.CurrencyNotFound }
         
         eurUsdConversionRate.text = String(eurUsdRate)
         eurGbpConversionRate.text = String(eurGbpRate)
