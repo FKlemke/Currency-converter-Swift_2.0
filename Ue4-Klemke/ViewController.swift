@@ -14,7 +14,7 @@ enum Currency: String {
 
 class ViewController: UIViewController {
     
-    var updateCurrRate = UpdateRates()
+    var updateClass = UpdateRates()
     var currencies = [Currency : Double]()
     var conversionRates = [String : Double]()
     
@@ -39,79 +39,96 @@ class ViewController: UIViewController {
     }
     
     func populateConversionRates(){
+        //getting the arraylist with all currs
         var allCurrs = [String]()
         for curr in currencies{
             allCurrs.append(curr.0.rawValue)
         }
         
-        func perm(allCurrs : [String]){
-            let len = allCurrs.count
-            
+        for perm1 in allCurrs{
+            //nested loops exponential complexity recursive approach did not work
+            let selectedCurr = perm1
+            for perm2 in allCurrs{
+                if selectedCurr != perm2{
+                    conversionRates["\(perm1)\(perm2)"] = 0
+                }
+            }
         }
-        
-
-
     }
-    
     
     //rates
     @IBAction func eurUsdManConvChange(sender: AnyObject) {
-        if let eurValValid = Double(eurVal.text!){
-            if let usdConRateValid = Double(eurUsdConversionRate.text!){
-                currencies[Currency.USD] = eurValValid * usdConRateValid
-                usdVal.text = String(currencies[Currency.USD]!)
-            }
+        //manual conversion rate change
+        if let convRateValid = Double(eurUsdConversionRate.text!){
+            conversionRates["EURUSD"] = convRateValid
+            print("EURUSD rate changed to: \(convRateValid)")
+            
+                if let eurValValid = Double(eurVal.text!){
+                    currencies[Currency.USD] = updateValues("EURUSD", value: eurValValid)
+                    usdVal.text = String(format: "%.2lf", currencies[Currency.USD]!)
+                }//boilerplate
+            
         }
-//pyramid of doom :(
-//        guard let eurValValid = try? Double(eurVal.text!)! else{}
-//        guard let usdValValid = try? Double(usdVal.text!)! else{}
-//        usdVal.text = String(eurValValid * usdValValid)
     }
     
     @IBAction func eurGbpManConvChange(sender: AnyObject) {
-        if let eurValValid = Double(eurVal.text!){
-            if let gbpConRateValid = Double(eurGbpConversionRate.text!){
-                currencies[Currency.GBP] = eurValValid * gbpConRateValid
-                gbpVal.text = String(currencies[Currency.GBP]!)
-            }
+        //manual conversion rate change
+        if let convRateValid = Double(eurGbpConversionRate.text!){
+            conversionRates["EURGBP"] = convRateValid
+            print("EURGBP rate changed to: \(convRateValid)")
+            
+            if let eurValValid = Double(eurVal.text!){
+                currencies[Currency.GBP] = updateValues("EURGBP", value: eurValValid)
+                gbpVal.text = String(format: "%.2lf", currencies[Currency.GBP]!)
+            }//boilerplate
         }
     }
     
     //values
     @IBAction func eurValManChange(sender: AnyObject) {
-        //terrible boilerplate code
         if let eurValValid = Double(eurVal.text!){
-            if let usdConRateValid = Double(eurUsdConversionRate.text!){
-                usdVal.text = String(eurValValid * usdConRateValid)
-            }
-             if let gbpConRateValid = Double(eurGbpConversionRate.text!){
-                gbpVal.text = String(eurValValid * gbpConRateValid)
-            }
+            currencies[Currency.USD] = updateValues("EURUSD", value: eurValValid)
+            usdVal.text = String(format: "%.2lf", currencies[Currency.USD]!)
+            currencies[Currency.GBP] = updateValues("EURGBP", value: eurValValid)
+            gbpVal.text = String(format: "%.2lf", currencies[Currency.GBP]!)
         }
     }
     
     @IBAction func usdValManChange(sender: AnyObject) {
-        
         if let usdValValid = Double(usdVal.text!){
-            
+            currencies[Currency.EUR] = updateValues("USDEUR", value: usdValValid)
+            eurVal.text = String(format: "%.2lf", currencies[Currency.EUR]!)
+            currencies[Currency.GBP] = updateValues("USDGBP", value: usdValValid)
+            gbpVal.text = String(format: "%.2lf", currencies[Currency.GBP]!)
         }
-        
     }
     
     @IBAction func gbpValManChange(sender: AnyObject) {
+        if let gbpValValid = Double(gbpVal.text!){
+            currencies[Currency.EUR] = updateValues("GBPEUR", value: gbpValValid)
+            eurVal.text = String(format: "%.2lf", currencies[Currency.EUR]!)
+            currencies[Currency.USD] = updateValues("GBPUSD", value: gbpValValid)
+            usdVal.text = String(format: "%.2lf", currencies[Currency.USD]!)
+        }
+    }
+    
+    func updateValues(convCall : String, value: Double) -> Double{
+        return value * conversionRates[convCall]!
     }
     
     //updateRates
     @IBAction func updateRates(sender: AnyObject) {
-//  tried using the guard statement but error was thrown and no idea how to catch it
-//        guard let eurUsdRate = try? updateCurrRate.updateRateFromYahoo(Currency.EUR, buyingCurrency: Currency.USD) else { throw CurrencyConversionError.CurrencyNotFound }
-//        guard let eurGbpRate = try? updateCurrRate.updateRateFromYahoo(Currency.EUR, buyingCurrency: Currency.GBP) else { throw CurrencyConversionError.CurrencyNotFound }
-
-        if let eurUsdRate = try? updateCurrRate.updateRateFromYahoo(Currency.EUR, buyingCurrency: Currency.USD){
+        for currKey in conversionRates.keys{
+            if let currCallRate = try? updateClass.updateRateFromYahoo(currKey){
+                conversionRates[currKey] = currCallRate
+            }
+        }
+        //update displays
+        if let eurUsdRate = conversionRates["EURUSD"]{
             eurUsdConversionRate.text = String(eurUsdRate)
         }
-        if let eurGbpRate = try? updateCurrRate.updateRateFromYahoo(Currency.EUR, buyingCurrency: Currency.GBP){
-           eurGbpConversionRate.text = String(eurGbpRate)
+        if let eurGbpRate = conversionRates["EURGBP"]{
+            eurGbpConversionRate.text = String(eurGbpRate)
         }
     }
     

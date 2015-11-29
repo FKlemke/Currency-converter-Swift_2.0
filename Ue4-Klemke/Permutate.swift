@@ -9,23 +9,33 @@
 //import Foundation
 //
 //class Permutate {
-//    let N = 5
-//    var p:[Int] = [1, 2, 3, 4, 5]
+//    let N = 0
+//    var p = [String]()
 //    var count = 0
+//    
+//    init(p :[String]){
+//    N = p.count
+//    self.p = p
+//    
+//    }
+//    
 //    
 //    func show() {
 //        count++
 //        print(NSString(format: "%5d: ", count))
+//        
 //        for i in 0..<N {
 //            print(NSString(format: " %d", p[i]))
 //        }
-//        print()
+//        print("")
 //    }
 //    
 //    var ok = [Bool](count: N + 1, repeatedValue: true)
 //    
-//    func put(pos:Int, k:Int) {
+//    func put(pos: Int, k: Int) {
+//        
 //        p[pos] = k
+//        
 //        if pos == N - 1 {
 //            show()
 //        }
@@ -49,4 +59,4 @@
 //    
 //    genperm1()
 //}
-//
+

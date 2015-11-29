@@ -16,10 +16,20 @@ class UpdateRates {
     
     
     func updateRateFromYahoo(sellingCurrency: Currency, buyingCurrency: Currency) throws -> Double{
-        let sc = String(sellingCurrency.rawValue)
-        let bc = String(buyingCurrency.rawValue)
-        let currRateURL = NSURL(string: "https://download.finance.yahoo.com/d/quotes.csv?s=\(sc)\(bc)=X&f=a")
+        let currRateURL = NSURL(string: "https://download.finance.yahoo.com/d/quotes.csv?s=\(sellingCurrency)\(buyingCurrency)=X&f=a")
 
+        do {
+            let content = try NSString(contentsOfURL: currRateURL!, encoding: NSUTF8StringEncoding)
+            return content.doubleValue
+        } catch {
+            print("Something went wrong when updating rates from Yahoo")
+            throw CurrencyConversionError.CurrencyNotFound
+        }
+    }
+    
+    func updateRateFromYahoo(currCall : String) throws -> Double{
+        let currRateURL = NSURL(string: "https://download.finance.yahoo.com/d/quotes.csv?s=\(currCall)=X&f=a")
+        
         do {
             let content = try NSString(contentsOfURL: currRateURL!, encoding: NSUTF8StringEncoding)
             return content.doubleValue
