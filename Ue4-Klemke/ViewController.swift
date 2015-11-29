@@ -12,11 +12,11 @@ enum Currency: String {
     case EUR, USD, GBP
     }
 
-
 class ViewController: UIViewController {
     
     var updateCurrRate = UpdateRates()
     var currencies = [Currency : Double]()
+    var conversionRates = [String : Double]()
     
     @IBOutlet weak var eurUsdConversionRate: UITextField!
     @IBOutlet weak var eurGbpConversionRate: UITextField!
@@ -38,30 +38,64 @@ class ViewController: UIViewController {
         currencies[Currency.GBP] = 1
     }
     
+    func populateConversionRates(){
+        var allCurrs = [String]()
+        for curr in currencies{
+            allCurrs.append(curr.0.rawValue)
+        }
+        
+        func perm(allCurrs : [String]){
+            let len = allCurrs.count
+            
+        }
+        
+
+
+    }
+    
+    
     //rates
     @IBAction func eurUsdManConvChange(sender: AnyObject) {
         if let eurValValid = Double(eurVal.text!){
-            if let usdValValid = Double(usdVal.text!){
-                //TODO does not work
-                let valueAA = eurValValid * usdValValid
-                print("Here? \(valueAA)")
-                usdVal.text = String(valueAA)
+            if let usdConRateValid = Double(eurUsdConversionRate.text!){
+                currencies[Currency.USD] = eurValValid * usdConRateValid
+                usdVal.text = String(currencies[Currency.USD]!)
             }
         }
-        print("EUR USD changed")
+//pyramid of doom :(
 //        guard let eurValValid = try? Double(eurVal.text!)! else{}
 //        guard let usdValValid = try? Double(usdVal.text!)! else{}
 //        usdVal.text = String(eurValValid * usdValValid)
     }
     
     @IBAction func eurGbpManConvChange(sender: AnyObject) {
+        if let eurValValid = Double(eurVal.text!){
+            if let gbpConRateValid = Double(eurGbpConversionRate.text!){
+                currencies[Currency.GBP] = eurValValid * gbpConRateValid
+                gbpVal.text = String(currencies[Currency.GBP]!)
+            }
+        }
     }
     
     //values
     @IBAction func eurValManChange(sender: AnyObject) {
+        //terrible boilerplate code
+        if let eurValValid = Double(eurVal.text!){
+            if let usdConRateValid = Double(eurUsdConversionRate.text!){
+                usdVal.text = String(eurValValid * usdConRateValid)
+            }
+             if let gbpConRateValid = Double(eurGbpConversionRate.text!){
+                gbpVal.text = String(eurValValid * gbpConRateValid)
+            }
+        }
     }
     
     @IBAction func usdValManChange(sender: AnyObject) {
+        
+        if let usdValValid = Double(usdVal.text!){
+            
+        }
+        
     }
     
     @IBAction func gbpValManChange(sender: AnyObject) {
@@ -79,13 +113,13 @@ class ViewController: UIViewController {
         if let eurGbpRate = try? updateCurrRate.updateRateFromYahoo(Currency.EUR, buyingCurrency: Currency.GBP){
            eurGbpConversionRate.text = String(eurGbpRate)
         }
-        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setDummyData()
         initCurrs()
+        populateConversionRates()
         // Do any additional setup after loading the view, typically from a nib.
     }
 

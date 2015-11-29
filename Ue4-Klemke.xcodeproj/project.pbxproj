@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		773A73B71C0A77CC000B1DE3 /* Permutate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773A73B61C0A77CC000B1DE3 /* Permutate.swift */; };
 		773C507F1C0A105600F7775D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773C507E1C0A105600F7775D /* AppDelegate.swift */; };
 		773C50811C0A105600F7775D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773C50801C0A105600F7775D /* ViewController.swift */; };
 		773C50841C0A105600F7775D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 773C50821C0A105600F7775D /* Main.storyboard */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		773A73B61C0A77CC000B1DE3 /* Permutate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Permutate.swift; sourceTree = "<group>"; };
 		773C507B1C0A105500F7775D /* Ue4-Klemke.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ue4-Klemke.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		773C507E1C0A105600F7775D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		773C50801C0A105600F7775D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 				773C50871C0A105600F7775D /* LaunchScreen.storyboard */,
 				773C508A1C0A105600F7775D /* Info.plist */,
 				773C50921C0A11A400F7775D /* UpdateRates.swift */,
+				773A73B61C0A77CC000B1DE3 /* Permutate.swift */,
 			);
 			path = "Ue4-Klemke";
 			sourceTree = "<group>";
@@ -140,6 +143,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				773C50811C0A105600F7775D /* ViewController.swift in Sources */,
+				773A73B71C0A77CC000B1DE3 /* Permutate.swift in Sources */,
 				773C50931C0A11A400F7775D /* UpdateRates.swift in Sources */,
 				773C507F1C0A105600F7775D /* AppDelegate.swift in Sources */,
 			);
