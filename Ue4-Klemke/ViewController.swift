@@ -155,6 +155,7 @@ class ViewController: UIViewController {
     if let eurGbpRate = conversionRates["EURGBP"]{
       eurGbpConversionRate.text = String(eurGbpRate)
     }
+<<<<<<< HEAD
   }
   
   func saveUserDefaults(){
@@ -178,4 +179,11 @@ class ViewController: UIViewController {
   
   
 }
+=======
 
+    @IBAction func back(segue : UIStoryboardSegue){
+        
+    }
+>>>>>>> origin/julian
+
+}
