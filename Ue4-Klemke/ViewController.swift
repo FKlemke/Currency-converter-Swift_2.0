@@ -26,7 +26,7 @@ class ViewController: UIViewController {
   @IBOutlet weak var gbpVal: UITextField!
   
   func setDummyData(){
-    //not implemented!  
+    //not implemented!
     eurUsdConversionRate.text = "1.0651"
     eurGbpConversionRate.text = "0.7011"
     eurVal.text = "1"
@@ -174,6 +174,7 @@ class ViewController: UIViewController {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
   }
+
   
   
   
